@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OBJ//TRAKR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header>
+  <div class="logo">OBJ<span>//</span>TRAKR <em>v1.0</em></div>
+  <div class="src">
+    <label class="btn" title="Upload a video file">
+      <input type="file" id="file" accept="video/*,.mp4,.mov,.mkv,.webm" hidden>
+      &gt; LOAD FILE
+    </label>
+    <input id="path" placeholder="...or paste a local path  C:\videos\clip.mp4" spellcheck="false">
+    <button class="btn" id="openPath">OPEN</button>
+  </div>
+  <div class="meta" id="meta">NO SIGNAL</div>
+</header>
+
+<main>
+  <section class="stage">
+    <div class="viewport" id="viewport">
+      <img id="view" alt="">
+      <div class="empty" id="empty">
+        <pre>
+ ┌──────────────────────────────────────┐
+ │  AWAITING INPUT STREAM_              │
+ │  drop a video here or LOAD FILE      │
+ └──────────────────────────────────────┘</pre>
+      </div>
+      <div class="busy" id="busy"></div>
+    </div>
+    <div class="transport">
+      <button class="btn icon" id="play" title="Play / pause (space)">▶</button>
+      <button class="btn icon" id="prev" title="Previous frame (←)">◂</button>
+      <button class="btn icon" id="next" title="Next frame (→)">▸</button>
+      <div class="timeline">
+        <div class="range-mark" id="rangeMark"></div>
+        <input type="range" id="seek" min="0" max="0" value="0" step="1">
+      </div>
+      <span class="tc" id="tc">00:00:00.00 / F000000</span>
+      <button class="btn small" id="setIn" title="Set in-point (I)">IN</button>
+      <button class="btn small" id="setOut" title="Set out-point (O)">OUT</button>
+      <button class="btn small" id="clearRange" title="Clear in/out">CLR</button>
+    </div>
+    <div class="statusbar">
+      <span>PREVIEW
+        <select id="ph">
+          <option value="360">360p</option>
+          <option value="540">540p</option>
+          <option value="720" selected>720p</option>
+          <option value="1080">1080p</option>
+        </select>
+      </span>
+      <span id="device">DEVICE --</span>
+      <span id="perf">--</span>
+      <span id="rangeInfo">RANGE: FULL</span>
+      <span class="hint">SPACE play · ←/→ step · I/O in/out</span>
+    </div>
+  </section>
+
+  <aside class="panel">
+    <div class="presets">
+      <select id="presetSel"></select>
+      <button class="btn small" id="presetLoad">LOAD</button>
+      <button class="btn small" id="presetSave">SAVE</button>
+      <button class="btn small" id="presetDel">DEL</button>
+      <button class="btn small" id="presetExport" title="Download params JSON">⇩</button>
+      <label class="btn small" title="Import params JSON"><input type="file" id="presetImport" accept=".json" hidden>⇧</label>
+      <button class="btn small" id="resetAll" title="Reset everything to defaults">RST</button>
+    </div>
+    <div id="groups"></div>
+
+    <div class="export">
+      <div class="ghead static">// EXPORT</div>
+      <div class="row"><label>resolution</label>
+        <select id="exRes">
+          <option value="source">source</option>
+          <option value="2160">2160p (4K)</option>
+          <option value="1440">1440p</option>
+          <option value="1080">1080p</option>
+          <option value="720">720p</option>
+        </select></div>
+      <div class="row"><label>codec</label>
+        <select id="exCodec">
+          <option value="h264">H.264 (mp4)</option>
+          <option value="h265">H.265 (mp4)</option>
+          <option value="prores">ProRes 422 HQ (mov)</option>
+        </select></div>
+      <div class="row"><label>quality (crf)</label><input type="number" id="exCrf" value="14" min="0" max="40"></div>
+      <div class="row"><label>encoder preset</label>
+        <select id="exPreset">
+          <option>ultrafast</option><option>veryfast</option><option>fast</option>
+          <option selected>medium</option><option>slow</option>
+        </select></div>
+      <div class="row"><label>output</label>
+        <select id="exBg"><option value="video">composite (video + fx)</option><option value="black">fx layer on black</option></select></div>
+      <div class="row"><label>range</label>
+        <select id="exRange"><option value="full">full video</option><option value="inout">in → out</option></select></div>
+      <button class="btn wide" id="exGo">&gt; RENDER</button>
+      <pre class="progress" id="exProg"></pre>
+    </div>
+  </aside>
+</main>
+<script src="/static/app.js"></script>
+</body>
+</html>

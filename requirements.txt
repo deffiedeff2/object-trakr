@@ -1,0 +1,10 @@
+# CPU torch is fine; for an NVIDIA GPU install the CUDA build of torch first.
+torch
+torchvision
+ultralytics>=8.3
+opencv-python
+flask>=3.0
+imageio-ffmpeg
+pillow
+numpy
+lap

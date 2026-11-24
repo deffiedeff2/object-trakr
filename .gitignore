@@ -1,0 +1,9 @@
+.venv/
+uploads/
+exports/
+models/
+samples/
+.claude/
+__pycache__/
+*.pyc
+.DS_Store
